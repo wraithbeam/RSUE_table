@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -41,9 +42,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="564.0" prefWidth="1068.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="720.0" prefWidth="1360.0" VBox.vgrow="ALWAYS">
       <children>
           <MenuBar layoutY="1.0" prefHeight="1.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -77,7 +78,13 @@
                   </Menu>
             </menus>
           </MenuBar>
-            <TableView layoutY="26.0" prefHeight="375.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0" />
+            <TableView layoutY="24.0" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+            <Button layoutX="985.0" layoutY="537.0" mnemonicParsing="false" text="Добавить" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button layoutX="914.0" layoutY="533.0" mnemonicParsing="false" text="Изменить" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="83.6" />
+            <Button layoutX="852.0" layoutY="534.0" mnemonicParsing="false" text="Удалить" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="164.0" />
+            <Button layoutX="14.0" layoutY="534.0" mnemonicParsing="false" text="Открыть" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="14.0" />
+            <Button layoutX="93.0" layoutY="534.0" mnemonicParsing="false" text="Сохранить" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="93.0" />
+            <CheckBox layoutX="733.0" layoutY="537.0" mnemonicParsing="false" text="Показать все" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="240.6" />
       </children>
     </AnchorPane>
   </children>
