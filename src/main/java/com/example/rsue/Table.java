@@ -6,20 +6,20 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Table {
     private XSSFWorkbook workbook;
     private FileInputStream fileInputStream;
-    private XSSFSheet sheet;
+    private String location;
 
 
     public Table(String location) throws IOException {
         try {
             fileInputStream = new FileInputStream(location);
             workbook = new XSSFWorkbook(fileInputStream);
+            this.location = location;
         }catch (Exception e){
             System.out.println(e);
         }
@@ -94,6 +94,39 @@ public class Table {
         }
         return titles;
     }
+
+
+    public void deleteRow(int rowIndex){
+        try {
+            XSSFSheet sheet = workbook.getSheet("Подписки");
+            int lastRowNum = sheet.getLastRowNum();
+            if (rowIndex >= 0 && rowIndex < lastRowNum) {
+                sheet.shiftRows(rowIndex + 1, lastRowNum, -1);
+            }
+            if (rowIndex == lastRowNum) {
+                XSSFRow removingRow = sheet.getRow(rowIndex);
+                if (removingRow != null) {
+                    sheet.removeRow(removingRow);
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    public void save(){
+        try {
+            File outWB = new File(location);
+            OutputStream out = new FileOutputStream(outWB);
+            workbook.write(out);
+            out.flush();
+            out.close();
+        }
+        catch (IOException e){
+            System.out.println(e);
+        }
+    }
+
 
 }
 

@@ -12,4 +12,6 @@ module com.example.rsue {
 
     opens com.example.rsue to javafx.fxml;
     exports com.example.rsue;
+    exports com.example.rsue.controllers;
+    opens com.example.rsue.controllers to javafx.fxml;
 }

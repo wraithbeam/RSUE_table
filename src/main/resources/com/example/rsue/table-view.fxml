@@ -42,24 +42,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="564.0" prefWidth="1068.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.MainController">
+<VBox prefHeight="564.0" prefWidth="1068.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.controllers.MainController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: #333333;" VBox.vgrow="ALWAYS">
       <children>
-            <TableView fx:id="tableInfo" layoutY="24.0" onMouseClicked="#openFileDialog" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+            <TableView fx:id="tableInfo" layoutY="24.0" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
           <MenuBar layoutY="1.0" prefHeight="1.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
               <Menu fx:id="menuFile" mnemonicParsing="false" style="-fx-color: white;" text="Файл">
                 <items>
                   <MenuItem fx:id="menuFileOpen" mnemonicParsing="false" onAction="#openMenuFileDialog" text="Открыть" />
-                        <MenuItem fx:id="menuFileSave" mnemonicParsing="false" text="Сохранить" />
-                        <MenuItem fx:id="menuFileClose" mnemonicParsing="false" text="Закрыть" />
+                        <MenuItem fx:id="menuFileSave" mnemonicParsing="false" onAction="#saveMenuButton" text="Сохранить" />
+                        <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeFile" text="Закрыть" />
                 </items>
               </Menu>
               <Menu fx:id="menuEdit" mnemonicParsing="false" text="Редактировать">
                 <items>
                   <MenuItem fx:id="menuEditAdd" mnemonicParsing="false" text="Добавить" />
-                        <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" text="Удалить" />
+                        <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#removeRowMenu" text="Удалить" />
                         <MenuItem fx:id="menuEditChange" mnemonicParsing="false" text="Изменить" />
                 </items>
               </Menu>
@@ -81,9 +81,9 @@
           </MenuBar>
             <Button fx:id="addButton" layoutX="985.0" layoutY="537.0" mnemonicParsing="false" text="Добавить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="14.0" />
             <Button fx:id="editButton" layoutX="904.0" layoutY="532.0" mnemonicParsing="false" text="Изменить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="93.60000000000002" />
-            <Button fx:id="deleteButton" layoutX="833.0" layoutY="532.0" mnemonicParsing="false" text="Удалить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="175.0" />
+            <Button fx:id="deleteButton" layoutX="833.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#removeRowButton" text="Удалить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="175.0" />
             <Button fx:id="openButton" layoutX="14.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#openFileDialog" text="Открыть" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="14.0" />
-            <Button fx:id="saveButton" layoutX="93.0" layoutY="534.0" mnemonicParsing="false" text="Сохранить" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="93.0" />
+            <Button fx:id="saveButton" layoutX="93.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#saveFileButton" text="Сохранить" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="93.0" />
             <CheckBox fx:id="viewFormCheckBox" layoutX="722.0" layoutY="536.0" mnemonicParsing="false" text="Показать все" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="251.60000000000002" />
       </children>
     </AnchorPane>

@@ -5,6 +5,8 @@ public class Row {
     private String type;
     private String title;
     private String time;
+    private int index;
+    private int article;
 
     public Row(){
         this.fio = "";
@@ -50,5 +52,21 @@ public class Row {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getArticle() {
+        return article;
+    }
+
+    public void setArticle(int article) {
+        this.article = article;
     }
 }
