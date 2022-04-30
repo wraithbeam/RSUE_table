@@ -19,8 +19,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        Table table = new Table(new String("D:\\RSUE\\Java+VBA\\project.xlsx"));
-        System.out.println(table.getRows(4));
         launch();
     }
 }

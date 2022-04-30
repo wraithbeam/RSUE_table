@@ -1,23 +1,14 @@
 package com.example.rsue;
 
 
-import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
-import static org.apache.poi.ss.usermodel.CellType.STRING;
 
 public class Table {
     private XSSFWorkbook workbook;
@@ -25,9 +16,13 @@ public class Table {
     private XSSFSheet sheet;
 
 
-    public Table(String location) throws IOException, FileNotFoundException {
-        fileInputStream = new FileInputStream(location);
-        workbook = new XSSFWorkbook(fileInputStream);
+    public Table(String location) throws IOException {
+        try {
+            fileInputStream = new FileInputStream(location);
+            workbook = new XSSFWorkbook(fileInputStream);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
     public XSSFWorkbook getWorkBook() {
         return workbook;
@@ -41,33 +36,34 @@ public class Table {
         XSSFSheet sheet = workbook.getSheet(nameSheet);
         return getTitles(sheet);
     }
-    public ArrayList<String> getRows(int indexSheet){
+    public ArrayList<ArrayList<String>> getRows(int indexSheet){
         XSSFSheet sheet = workbook.getSheetAt(indexSheet);
         return getRows(sheet);
     }
-    public ArrayList<String> getRows(String nameSheet){
+    public ArrayList<ArrayList<String>> getRows(String nameSheet){
         XSSFSheet sheet = workbook.getSheet(nameSheet);
         return getRows(sheet);
     }
 
-    private ArrayList<String> getRows(XSSFSheet sheet) {
-        ArrayList<String> rows = new ArrayList<String>();
+    private ArrayList<ArrayList<String>> getRows(XSSFSheet sheet) {
+        ArrayList<ArrayList<String>> rows = new ArrayList<>();
         try
         {
             for (short rowIndex = 1; rowIndex < sheet.getPhysicalNumberOfRows(); rowIndex++){
                 XSSFRow row = sheet.getRow(rowIndex);
+                ArrayList<String> oneRow = new ArrayList<>();
                 for (short cellIndex = 0; cellIndex < row.getLastCellNum(); cellIndex++){
                     XSSFCell cell = row.getCell(cellIndex);
                     switch (cell.getCellType()) {
                         case NUMERIC:
-                            rows.add(String.valueOf((int)cell.getNumericCellValue()));
+                            oneRow.add(String.valueOf((int)cell.getNumericCellValue()));
                             break;
                         case STRING:
-                            rows.add(cell.getStringCellValue());
+                            oneRow.add(cell.getStringCellValue());
                             break;
                     }
                 }
-                rows.add("\n");
+                rows.add(oneRow);
             }
             fileInputStream.close();
         }

@@ -1,3 +1,6 @@
 .menuBar{
     width: max-content;
 }
+.tableView {
+    -fx-focus-color: gray;
+}
