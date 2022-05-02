@@ -4,3 +4,6 @@
 .tableView {
     -fx-focus-color: gray;
 }
+.anchorPlane{
+    -fx-background-color: white;
+}

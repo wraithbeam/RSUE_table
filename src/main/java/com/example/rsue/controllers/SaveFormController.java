@@ -43,18 +43,6 @@ public class SaveFormController {
         //api(2);
     }
 
-    private void api(int choose) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("table-view.fxml"));
-            Parent root = loader.load();
-            MainController mainController = loader.getController();
-            mainController.setSaveAPI(choose);
-
-        }catch (Exception e){
-            System.out.println(e);
-        }
-    }
-
     public int getChoose(){
         return choose;
     }

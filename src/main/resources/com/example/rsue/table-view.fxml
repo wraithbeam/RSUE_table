@@ -33,59 +33,78 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="564.0" prefWidth="1068.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.controllers.MainController">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: #333333;" VBox.vgrow="ALWAYS">
-      <children>
-            <TableView fx:id="tableInfo" layoutY="24.0" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-          <MenuBar layoutY="1.0" prefHeight="1.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <menus>
-              <Menu fx:id="menuFile" mnemonicParsing="false" style="-fx-color: white;" text="Файл">
-                <items>
+<AnchorPane prefHeight="564.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.controllers.MainController">
+   <children>
+      <SplitPane fx:id="splitPlane" dividerPositions="0.7303120356612183" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane fx:id="tableAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView fx:id="tableInfo" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="-120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="editFormPlane" minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="1066.0">
+               <children>
+                  <ToolBar fx:id="toolBar" prefHeight="26.0" prefWidth="1050.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <Button fx:id="addButton" mnemonicParsing="false" text="Добавить" />
+                        <Button fx:id="editButton" mnemonicParsing="false" text="Изменить" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#removeRowButton" text="Удалить" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onMouseClicked="#saveFileButton" text="Сохранить" />
+                    </items>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+      <MenuBar prefHeight="1.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu fx:id="menuFile" mnemonicParsing="false" style="-fx-color: white;" text="Файл">
+               <items>
                   <MenuItem fx:id="menuFileOpen" mnemonicParsing="false" onAction="#openMenuFileDialog" text="Открыть" />
-                        <MenuItem fx:id="menuFileSave" mnemonicParsing="false" onAction="#saveMenuButton" text="Сохранить" />
-                        <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeFile" text="Закрыть" />
-                </items>
-              </Menu>
-              <Menu fx:id="menuEdit" mnemonicParsing="false" text="Редактировать">
-                <items>
+                  <MenuItem fx:id="menuFileSave" mnemonicParsing="false" onAction="#saveMenuButton" text="Сохранить" />
+                  <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeFile" text="Закрыть" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuEdit" mnemonicParsing="false" text="Редактировать">
+               <items>
                   <MenuItem fx:id="menuEditAdd" mnemonicParsing="false" text="Добавить" />
-                        <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#removeRowMenu" text="Удалить" />
-                        <MenuItem fx:id="menuEditChange" mnemonicParsing="false" text="Изменить" />
-                </items>
-              </Menu>
-                  <Menu fx:id="menuFind" mnemonicParsing="false" text="Поиск">
-                     <items>
-                        <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <TextField fx:id="menuFindCondition" />
-                           </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <Button id="acceptFind" fx:id="menuFindAcceptButton" mnemonicParsing="false" text="ОК" />
-                           </graphic>
-                        </MenuItem>
-                     </items>
-                  </Menu>
-            </menus>
-          </MenuBar>
-            <Button fx:id="addButton" layoutX="985.0" layoutY="537.0" mnemonicParsing="false" text="Добавить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="14.0" />
-            <Button fx:id="editButton" layoutX="904.0" layoutY="532.0" mnemonicParsing="false" text="Изменить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="93.60000000000002" />
-            <Button fx:id="deleteButton" layoutX="833.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#removeRowButton" text="Удалить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="175.0" />
-            <Button fx:id="openButton" layoutX="14.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#openFileDialog" text="Открыть" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="14.0" />
-            <Button fx:id="saveButton" layoutX="93.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#saveFileButton" text="Сохранить" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="93.0" />
-            <CheckBox fx:id="viewFormCheckBox" layoutX="722.0" layoutY="536.0" mnemonicParsing="false" text="Показать все" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="251.60000000000002" />
-      </children>
-    </AnchorPane>
-  </children>
-</VBox>
+                  <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#removeRowMenu" text="Удалить" />
+                  <MenuItem fx:id="menuEditChange" mnemonicParsing="false" text="Изменить" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuFind" mnemonicParsing="false" text="Поиск">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <TextField fx:id="menuFindCondition" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="acceptFind" fx:id="menuFindAcceptButton" mnemonicParsing="false" text="ОК" />
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <menus>
+            <Menu fx:id="openCloseEditTab" mnemonicParsing="false">
+               <graphic>
+                  <Label onMouseClicked="#showHideEditTab" text="Изменить" />
+               </graphic></Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

@@ -11,7 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -22,8 +26,12 @@ import java.io.IOException;
 
 public class MainController {
     private JavaFXTable javaFXTable;
-    private boolean isThereUnsavedChanges = true;
+    private boolean isThereUnsavedChanges = false;
     private int saveAPI;
+    private boolean isEditTabOpen = true;
+
+    @FXML
+    private TableView<Row> tableInfo;
 
     @FXML
     private Button addButton;
@@ -33,6 +41,9 @@ public class MainController {
 
     @FXML
     private Button editButton;
+
+    @FXML
+    private AnchorPane editFormPlane;
 
     @FXML
     private Menu menuEdit;
@@ -68,16 +79,20 @@ public class MainController {
     private TextField menuFindCondition;
 
     @FXML
-    private Button openButton;
+    private Menu openCloseEditTab;
 
     @FXML
     private Button saveButton;
 
     @FXML
-    private TableView<Row> tableInfo;
+    private SplitPane splitPlane;
 
     @FXML
-    private CheckBox viewFormCheckBox;
+    private AnchorPane tableAnchorPane;
+
+    @FXML
+    private ToolBar toolBar;
+
 
     //Выбор файла. Кнопки "Открыть"
     public void openFileDialog(MouseEvent event) {
@@ -87,6 +102,7 @@ public class MainController {
         fileChooserStart();
     }
     private void fileChooserStart(){
+        exitProtection();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File excelFile = fileChooser.showOpenDialog(new Stage());
@@ -99,7 +115,7 @@ public class MainController {
      * Выводит данные в таблицу JavaFX
      */
     private void showRowsInFXTable(){
-        tableInfo.getColumns().clear();
+            tableInfo.getColumns().clear();
 
         TableColumn<Row, String> columnFIO = new TableColumn<>("ФИО");
         TableColumn<Row, String> columnType = new TableColumn<>("Вид");
@@ -123,7 +139,12 @@ public class MainController {
 
     //Удаление записи
     public void removeRowButton(MouseEvent event){
-        removeRow();
+        try {
+            removeRow();
+        }catch (Exception e){
+            System.out.println("Ничего не выделено!" + e);
+        }
+
     }
     public void removeRowMenu(ActionEvent event){
         removeRow();
@@ -137,8 +158,13 @@ public class MainController {
 
     //Сохранения файла
     public void saveFileButton(MouseEvent event){
-        javaFXTable.save();
-        isThereUnsavedChanges = false;
+        try {
+            javaFXTable.save();
+            isThereUnsavedChanges = false;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
     }
     public void saveMenuButton(ActionEvent event){
         javaFXTable.save();
@@ -149,7 +175,6 @@ public class MainController {
     public void closeFile(ActionEvent event){
         exitProtection();
     }
-
     /**
      * Если есть неподтвержденые изменения, спросит о намерении их сохранить
      */
@@ -176,6 +201,7 @@ public class MainController {
                         break;
                     case 1:
                         tableInfo.getColumns().clear();
+                        isThereUnsavedChanges = false;
                         break;
                     case 2:
                         try
@@ -194,15 +220,32 @@ public class MainController {
         }
     }
 
-    public void setSaveAPI(int saveAPI) {
-        this.saveAPI = saveAPI;
+
+    /**
+     * Скрывает или открывает форму редактирования
+     */
+    public void showHideEditTab(MouseEvent event) {
+        if (isEditTabOpen) {
+            splitPlane.setDividerPosition(0, 1);
+            isEditTabOpen = false;
+        }
+        else {
+            splitPlane.setDividerPosition(0, 0.7);
+            isEditTabOpen = true;
+        }
     }
 
     @FXML
     void initialize(){
-
+        menuEditDelete.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
+        menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+        menuFileSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+        menuEditAdd.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
+        menuEditChange.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
     }
 
-
-
+    @FXML
+    public void exitApplication() {
+        exitProtection();
+    }
 }
