@@ -126,7 +126,92 @@ public class Table {
             System.out.println(e);
         }
     }
+    public void addRow(Row row){
+        try {
+            XSSFSheet clients = workbook.getSheet("Клиенты");
+            XSSFSheet products = workbook.getSheet("Продукты");
+            XSSFSheet buys = workbook.getSheet("Подписки");
+            XSSFSheet izdatelstva = workbook.getSheet("Издательство");
 
+            XSSFRow xRow = clients.createRow(clients.getLastRowNum() + 1);
+            xRow.createCell(0).setCellValue(Integer.parseInt(row.getIndex()));
+            xRow.createCell(1).setCellValue(row.getSurname());
+            xRow.createCell(2).setCellValue(row.getName());
+            xRow.createCell(3).setCellValue(row.getOtchestvo());
+            xRow.createCell(4).setCellValue(row.getTimeAtAll());
+            xRow.createCell(5).setCellValue(row.getTimeInYear());
+            xRow.createCell(6).setCellValue(row.getAddress());
+
+            if (!isThisProductInListYet(row, products)){
+                xRow = products.createRow(products.getLastRowNum() + 1);
+                xRow.createCell(0).setCellValue(Integer.parseInt(row.getArticle()));
+                xRow.createCell(1).setCellValue(row.getType());
+                xRow.createCell(2).setCellValue(row.getTitle());
+                xRow.createCell(3).setCellValue(row.getIzdatel());
+
+                if (!isThisIzdatelInListYet(row, izdatelstva)){
+                    xRow = izdatelstva.createRow(izdatelstva.getLastRowNum() + 1);
+                    xRow.createCell(0).setCellValue(row.getIzdatel());
+                    xRow.createCell(1).setCellValue(row.getAddressCompany());
+
+                }
+            }
+
+            xRow = buys.createRow(buys.getLastRowNum() + 1);
+            xRow.createCell(0).setCellValue(row.getIndex());
+            xRow.createCell(1).setCellValue(row.getArticle());
+
+            save();
+        }catch (Exception e){
+            System.out.println("Ошибка добавления в Эксель | " + e);
+        }
+    }
+    public void editRow(Row row){
+        XSSFSheet clients = workbook.getSheet("Клиенты");
+        XSSFSheet products = workbook.getSheet("Продукты");
+
+        for (short rowIndex = 1; rowIndex < clients.getPhysicalNumberOfRows(); rowIndex++) {
+            XSSFRow xRow = clients.getRow(rowIndex);
+            XSSFCell cell = xRow.getCell(0);
+            if (cell.getNumericCellValue() == Integer.parseInt(row.getIndex())) {
+                xRow.getCell(1).setCellValue(row.getSurname());
+                xRow.getCell(2).setCellValue(row.getName());
+                xRow.getCell(3).setCellValue(row.getOtchestvo());
+                xRow.getCell(4).setCellValue(row.getTimeAtAll());
+                xRow.getCell(5).setCellValue(row.getTimeInYear());
+                xRow.getCell(6).setCellValue(row.getAddress());
+            }
+        }
+        for (short rowIndex = 1; rowIndex < products.getPhysicalNumberOfRows(); rowIndex++) {
+            XSSFRow xRow = products.getRow(rowIndex);
+            XSSFCell cell = xRow.getCell(0);
+            if (cell.getNumericCellValue() == Integer.parseInt(row.getArticle())) {
+                xRow.getCell(0).setCellValue(Integer.parseInt(row.getArticle()));
+                xRow.getCell(1).setCellValue(row.getType());
+                xRow.getCell(2).setCellValue(row.getTitle());
+                xRow.getCell(3).setCellValue(row.getIzdatel());
+            }
+        }
+
+    }
+
+    private boolean isThisProductInListYet(Row row, XSSFSheet products){
+        for (int rowIndex = 1; rowIndex < products.getPhysicalNumberOfRows(); rowIndex++){
+            if (products.getRow(rowIndex).getCell(0).getNumericCellValue() == Integer.parseInt(row.getArticle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isThisIzdatelInListYet(Row row, XSSFSheet izdatel){
+        for (int rowIndex = 1; rowIndex < izdatel.getPhysicalNumberOfRows(); rowIndex++){
+            if (izdatel.getRow(rowIndex).getCell(0).getStringCellValue() == row.getIzdatel()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 

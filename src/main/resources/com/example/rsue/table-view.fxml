@@ -32,7 +32,10 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CustomMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -42,26 +45,106 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane prefHeight="564.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.controllers.MainController">
    <children>
-      <SplitPane fx:id="splitPlane" dividerPositions="0.7303120356612183" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitPlane" dividerPositions="0.6061550447993765" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <items>
             <AnchorPane fx:id="tableAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tableInfo" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="-120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TableView fx:id="tableInfo" onMouseClicked="#fillEditForm" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="-120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="editFormPlane" minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="1066.0">
                <children>
-                  <ToolBar fx:id="toolBar" prefHeight="26.0" prefWidth="1050.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ToolBar fx:id="toolBar" layoutY="9.0" prefHeight="26.0" prefWidth="1050.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <Button fx:id="addButton" mnemonicParsing="false" text="Добавить" />
-                        <Button fx:id="editButton" mnemonicParsing="false" text="Изменить" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addRow" text="Добавить" />
+                        <Button fx:id="editButton" mnemonicParsing="false" onMouseClicked="#editRow" text="Изменить" />
                         <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#removeRowButton" text="Удалить" />
                         <Button fx:id="saveButton" mnemonicParsing="false" onMouseClicked="#saveFileButton" text="Сохранить" />
                     </items>
                   </ToolBar>
+                  <GridPane layoutY="35.0" prefHeight="115.0" prefWidth="1050.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="74.59998168945313" minHeight="10.0" prefHeight="32.7999755859375" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="71.19999389648439" minHeight="10.0" prefHeight="25.6" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="83.00000610351562" minHeight="10.0" prefHeight="34.4" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="83.00000610351562" minHeight="10.0" prefHeight="31.399987792968744" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="textfieldSurname" promptText="Фамилия">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldName" promptText="Имя" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldOtchestvo" promptText="Отчество" GridPane.columnIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldPhysicAdress" promptText="Адрес" GridPane.columnIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldIzdatel" promptText="Издательство" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldTitle" promptText="Название" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldArticle" promptText="Аритикул" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldCompanyAdress" promptText="Юр. адрес" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldPodpiskaInYear" promptText="Подписка в год" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="textfieldPodpiskaAllTime" promptText="Длительность подписки" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <CheckBox fx:id="chekboxJournal" mnemonicParsing="false" text="Журнал" />
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <CheckBox fx:id="chekboxPapper" mnemonicParsing="false" text="Газета" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
          </items>
@@ -80,20 +163,17 @@
                   <MenuItem fx:id="menuEditAdd" mnemonicParsing="false" text="Добавить" />
                   <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#removeRowMenu" text="Удалить" />
                   <MenuItem fx:id="menuEditChange" mnemonicParsing="false" text="Изменить" />
+                  <MenuItem fx:id="menuEditUnselect" mnemonicParsing="false" onAction="#unSelectItem" text="Снять выделение" />
                </items>
             </Menu>
             <Menu fx:id="menuFind" mnemonicParsing="false" text="Поиск">
                <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
+                  <CustomMenuItem hideOnClick="false" mnemonicParsing="false">
+                     <content>
                         <TextField fx:id="menuFindCondition" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button id="acceptFind" fx:id="menuFindAcceptButton" mnemonicParsing="false" text="ОК" />
-                     </graphic>
-                  </MenuItem>
+                     </content>
+                  </CustomMenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#searchInTable" text="Найти" />
                </items>
             </Menu>
          </menus>

@@ -1,12 +1,29 @@
 package com.example.rsue;
 
+import java.util.Objects;
+
 public class Row {
+    //Объединенные данные
     private String fio;
-    private String type;
-    private String title;
     private String time;
-    private int index;
-    private int article;
+
+    //Раздельные данные
+    private String surname;
+    private String name;
+    private String otchestvo;
+    private String address;
+    private String  index;
+
+    private String type;
+
+    private String izdatel;
+    private String title;
+    private String article;
+    private String addressCompany;
+
+    private String timeInYear;
+    private String timeAtAll;
+
 
     public Row(){
         this.fio = "";
@@ -15,11 +32,68 @@ public class Row {
         this.time = "";
     }
 
-    public Row(String fio, String type, String title, String time) {
-        this.fio = fio;
+    public Row(String surname, String name, String otchestvo, String address, String index,
+               String izdatel, String title, String addressCompany, String timeInYear, String timeAtAll,
+               String article, String type) {
+        this.name = name;
+        this.address = address;
         this.type = type;
-        this.title = title;
-        this.time = time;
+        if (title.charAt(0) != '\"')
+            this.title = "\"" + title + "\"";
+        else
+            this.title = title;
+        this.surname = surname;
+        this.otchestvo = otchestvo;
+        this.izdatel = izdatel;
+        this.addressCompany = addressCompany;
+        this.timeInYear = timeInYear;
+        this.timeAtAll = timeAtAll;
+        this.index = index;
+        this.article = article;
+
+        if (surname != null && surname != "")
+            if (name != null && name != "")
+                if (otchestvo != null && otchestvo != "")
+                    this.fio = surname + " " +  (name.charAt(0)) + "." + otchestvo.charAt(0) + ".";
+                else
+                    this.fio = surname + " " +  (name.charAt(0)) + ".";
+            else
+                this.fio = surname;
+        else
+            this.fio = "";
+        this.time = timeInYear + "/" + timeAtAll;
+    }
+
+    public boolean find(String condition){
+        if (Objects.equals(fio, condition))
+            return true;
+        else if (Objects.equals(title, condition))
+            return true;
+        else if (Objects.equals(type, condition))
+            return true;
+        else if (Objects.equals(surname, condition))
+            return true;
+        else if(Objects.equals(name, condition))
+            return true;
+        else if (Objects.equals(otchestvo, condition))
+            return true;
+        else if (Objects.equals(izdatel, condition))
+            return true;
+        else if (Objects.equals(timeInYear, condition))
+            return true;
+        else if (Objects.equals(time, condition))
+            return true;
+        else if (Objects.equals(timeAtAll, condition))
+            return true;
+        else if (Objects.equals(article, condition))
+            return true;
+        else if (Objects.equals(address, condition))
+            return true;
+        else if (Objects.equals(addressCompany, condition))
+            return true;
+        else if (Objects.equals(index, condition))
+            return true;
+        return false;
     }
 
     public String getType() {
@@ -43,7 +117,14 @@ public class Row {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        if (this.title == null)
+            this.title = title;
+        else{
+            if (title.charAt(0) != '\"')
+                this.title = "\"" + title + "\"";
+            else
+                this.title = title;
+        }
     }
 
     public String getTime() {
@@ -54,19 +135,83 @@ public class Row {
         this.time = time;
     }
 
-    public int getIndex() {
+    public String getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(String index) {
         this.index = index;
     }
 
-    public int getArticle() {
+    public String getArticle() {
         return article;
     }
 
-    public void setArticle(int article) {
+    public void setArticle(String article) {
         this.article = article;
+    }
+
+    public String getTimeInYear() {
+        return timeInYear;
+    }
+
+    public void setTimeInYear(String timeInYear) {
+        this.timeInYear = timeInYear;
+    }
+
+    public String getTimeAtAll() {
+        return timeAtAll;
+    }
+
+    public void setTimeAtAll(String timeAtAll) {
+        this.timeAtAll = timeAtAll;
+    }
+
+    public String getAddressCompany() {
+        return addressCompany;
+    }
+
+    public void setAddressCompany(String addressCompany) {
+        this.addressCompany = addressCompany;
+    }
+
+    public String getIzdatel() {
+        return izdatel;
+    }
+
+    public void setIzdatel(String izdatel) {
+        this.izdatel = izdatel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOtchestvo() {
+        return otchestvo;
+    }
+
+    public void setOtchestvo(String otchestvo) {
+        this.otchestvo = otchestvo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }
