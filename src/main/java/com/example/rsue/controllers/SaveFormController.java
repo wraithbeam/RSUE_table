@@ -1,49 +1,38 @@
 package com.example.rsue.controllers;
 
-import com.example.rsue.MainApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class SaveFormController {
-    private int choose;
+    private short choose;
 
     @FXML
     private Button Cancel;
 
-    @FXML
-    private Button DontSaveButton;
-
-    @FXML
-    private Button saveButton;
-
     public void cancel(){
-        Stage stage = (Stage) Cancel.getScene().getWindow();
-        stage.close();
 
         choose = 0;
+        Stage stage = (Stage) Cancel.getScene().getWindow();
+        stage.close();
         //api(0);
     }
 
     public void exit(){
+        choose = 1;
         Stage stage = (Stage) Cancel.getScene().getWindow();
         stage.close();
-        choose = 1;
         //api(1);
     }
 
     public void save(){
+        choose = 2;
         Stage stage = (Stage) Cancel.getScene().getWindow();
         stage.close();
-        choose = 2;
         //api(2);
     }
 
-    public int getChoose(){
+    public short getChoose(){
         return choose;
     }
 }

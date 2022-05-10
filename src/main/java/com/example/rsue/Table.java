@@ -44,6 +44,33 @@ public class Table {
         XSSFSheet sheet = workbook.getSheet(nameSheet);
         return getRows(sheet);
     }
+    public ArrayList<String> getColumnAtSheet(String nameSheet, int indexColumn){
+        ArrayList<String> rows = new ArrayList<>();
+        XSSFSheet sheet = workbook.getSheet(nameSheet);
+        try
+        {
+            for (short rowIndex = 1; rowIndex < sheet.getPhysicalNumberOfRows(); rowIndex++){
+                XSSFRow row = sheet.getRow(rowIndex);
+                String oneRow = "";
+                XSSFCell cell = row.getCell(indexColumn);
+                switch (cell.getCellType()) {
+                    case NUMERIC:
+                        oneRow += (String.valueOf((int)cell.getNumericCellValue()));
+                        break;
+                    case STRING:
+                        oneRow += (cell.getStringCellValue());
+                        break;
+                }
+                rows.add(oneRow);
+            }
+            fileInputStream.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return rows;
+    }
 
     private ArrayList<ArrayList<String>> getRows(XSSFSheet sheet) {
         ArrayList<ArrayList<String>> rows = new ArrayList<>();

@@ -96,6 +96,33 @@ public class Row {
         return false;
     }
 
+    public short getDifference(Row row){
+        short difference = 0;
+        if (!Objects.equals(this.name, row.name))
+            difference += 2;
+        if (!Objects.equals(this.address, row.address))
+            difference += 1;
+        if (!Objects.equals(this.type, row.type))
+            difference += 2;
+        if (!Objects.equals(this.title, row.title))
+            difference += 1;
+        if (!Objects.equals(this.surname, row.surname))
+            difference += 1;
+        if (!Objects.equals(this.otchestvo, row.otchestvo))
+            difference += 5;
+        if (!Objects.equals(this.izdatel, row.izdatel))
+            difference += 1;
+        if (!Objects.equals(this.addressCompany, row.addressCompany))
+            difference += 1;
+        if (!Objects.equals(this.timeInYear, row.timeInYear))
+            difference += 1;
+        if (!Objects.equals(this.timeAtAll, row.timeAtAll))
+            difference += 1;
+        if (!Objects.equals(this.article, row.article))
+            difference += 5;
+        return difference;
+    }
+
     public String getType() {
         return type;
     }

@@ -16,24 +16,26 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 public class MainController {
     private JavaFXTable javaFXTable;
     private boolean isThereUnsavedChanges = false;
-    private int saveAPI;
     private boolean isEditTabOpen = true;
     private ObservableList<Row> rows;
     private ArrayList<Row> unsavedRows = new ArrayList<>();
     private int lastSelectedRow = -1;
+
+
 
     @FXML
     private TableView<Row> tableInfo;
@@ -179,6 +181,22 @@ public class MainController {
         tableInfo.getColumns().add(columnType);
         tableInfo.getColumns().add(columnTitle);
         tableInfo.getColumns().add(columnDate);
+
+        //Добавление автозаполнения
+        try {
+            TextFields.bindAutoCompletion(textfieldSurname, javaFXTable.getColumnAtSheet("Клиенты", 1).toArray());
+            TextFields.bindAutoCompletion(textfieldName, javaFXTable.getColumnAtSheet("Клиенты", 2).toArray());
+            TextFields.bindAutoCompletion(textfieldOtchestvo, javaFXTable.getColumnAtSheet("Клиенты", 3).toArray());
+            TextFields.bindAutoCompletion(textfieldPhysicAdress, javaFXTable.getColumnAtSheet("Клиенты", 6).toArray());
+            TextFields.bindAutoCompletion(textfieldPodpiskaInYear, javaFXTable.getColumnAtSheet("Клиенты", 5).toArray());
+            TextFields.bindAutoCompletion(textfieldPodpiskaAllTime, javaFXTable.getColumnAtSheet("Клиенты", 4).toArray());
+
+            TextFields.bindAutoCompletion(textfieldTitle, javaFXTable.getColumnAtSheet("Продукты", 2).toArray());
+            TextFields.bindAutoCompletion(textfieldIzdatel, javaFXTable.getColumnAtSheet("Продукты", 3).toArray());
+            TextFields.bindAutoCompletion(textfieldArticle, javaFXTable.getColumnAtSheet("Продукты", 0).toArray());
+        }catch (Exception e){
+            System.out.println("Ошибка получения столбца | " + e);
+        }
     }
 
     //Удаление записи
@@ -255,11 +273,10 @@ public class MainController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene((Parent) loader.load()));
 
-                // showAndWait will block execution until the window closes...
                 stage.showAndWait();
 
                 SaveFormController controller = loader.getController();
-                saveAPI = controller.getChoose();
+                short saveAPI = controller.getChoose();
 
                 System.out.println(saveAPI);
                 switch (saveAPI){
@@ -399,18 +416,52 @@ public class MainController {
                     textfieldPodpiskaInYear.getText(), textfieldPodpiskaAllTime.getText(),
                     textfieldArticle.getText(), type);
 
-            rows.remove(index);
-            rows.add(index, newRow);
-            tableInfo.setItems(rows);
-            unSelectItem(new ActionEvent());
-            isThereUnsavedChanges = true;
-            javaFXTable.editRow(newRow);
+            if (rows.get(index).getDifference(newRow) >= 6)
+            {
+                Parent root;
+                try {
+                    FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("accept-save-view.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("ExcelToJava");
+                    stage.initOwner(tableInfo.getScene().getWindow());
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(new Scene((Parent) loader.load()));
+
+                    stage.showAndWait();
+
+                    AcceptController controller = loader.getController();
+                    short saveAPI = controller.getChoose();
+
+                    switch (saveAPI){
+                        default:
+                            break;
+                        case 0:
+                            unSelectItem(new ActionEvent());
+                            break;
+                        case 1:
+                            try
+                            {
+                                rows.remove(index);
+                                rows.add(index, newRow);
+                                tableInfo.setItems(rows);
+                                unSelectItem(new ActionEvent());
+                                isThereUnsavedChanges = true;
+                                javaFXTable.editRow(newRow);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                            break;
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("Ошибка изменения | " + e);
+                }
+            }
+
+
         }catch (Exception e){
             System.out.println("Ошибка добавления | " + e);
         }
-    }
-    private void editInExcel(Row row){
-        javaFXTable.editRow(row);
     }
 
     public void searchInTable(ActionEvent event){
@@ -457,6 +508,17 @@ public class MainController {
         textfieldPodpiskaAllTime.setText("");
 
     }
+
+    @FXML
+    void chooseJournal(ActionEvent event) {
+        chekboxPapper.setSelected(false);
+    }
+
+    @FXML
+    void choosePapper(ActionEvent event) {
+        chekboxJournal.setSelected(false);
+    }
+
 
     @FXML
     void initialize(){

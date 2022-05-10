@@ -99,6 +99,10 @@ public class JavaFXTable {
         table.save();
     }
 
+    public ArrayList<String> getColumnAtSheet(String nameSheet, int indexColumn){
+        return table.getColumnAtSheet(nameSheet, indexColumn);
+    }
+
 
     public boolean isTableOpen(){
         if (table != null)

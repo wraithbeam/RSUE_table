@@ -135,12 +135,12 @@
                         </TextField>
                         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox fx:id="chekboxJournal" mnemonicParsing="false" text="Журнал" />
+                              <CheckBox fx:id="chekboxJournal" mnemonicParsing="false" onAction="#chooseJournal" text="Журнал" />
                            </children>
                         </StackPane>
                         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox fx:id="chekboxPapper" mnemonicParsing="false" text="Газета" />
+                              <CheckBox fx:id="chekboxPapper" mnemonicParsing="false" onAction="#choosePapper" text="Газета" />
                            </children>
                         </StackPane>
                      </children>
@@ -182,7 +182,7 @@
          <menus>
             <Menu fx:id="openCloseEditTab" mnemonicParsing="false">
                <graphic>
-                  <Label onMouseClicked="#showHideEditTab" text="Изменить" />
+                  <Label onMouseClicked="#showHideEditTab" text="Показать" />
                </graphic></Menu>
          </menus>
       </MenuBar>

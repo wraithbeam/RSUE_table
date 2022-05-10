@@ -9,6 +9,7 @@ module com.example.rsue {
     requires org.apache.poi.poi;
 
     requires org.apache.logging.log4j;
+    requires org.controlsfx.controls;
 
     opens com.example.rsue to javafx.fxml;
     exports com.example.rsue;
