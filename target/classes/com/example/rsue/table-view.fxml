@@ -52,11 +52,11 @@
 
 <AnchorPane prefHeight="564.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rsue.controllers.MainController">
    <children>
-      <SplitPane fx:id="splitPlane" dividerPositions="0.6061550447993765" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <SplitPane fx:id="splitPlane" dividerPositions="0.7795091546552394" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <items>
-            <AnchorPane fx:id="tableAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane fx:id="tableAnchorPane" minHeight="0.0" minWidth="0.0">
                <children>
-                  <TableView fx:id="tableInfo" onMouseClicked="#fillEditForm" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="-120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TableView fx:id="tableInfo" onMouseClicked="#fillEditForm" prefHeight="502.0" prefWidth="1068.0" style="-fx-focus-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="editFormPlane" minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="1066.0">
