@@ -328,6 +328,7 @@ public class MainController {
             int indexSelectedRow = tableInfo.getSelectionModel().getSelectedIndex();
             if (indexSelectedRow == lastSelectedRow){
                 unSelectItem(new ActionEvent());
+                lastSelectedRow = -1;
                 return;
             }
             lastSelectedRow = indexSelectedRow;
